@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<title>വാക്ക് വെളിപ്പെടുത്തൽ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BODY ================= */
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Noto Sans Malayalam',sans-serif;
+overflow:hidden;
+
+background:linear-gradient(-45deg,#141e30,#243b55,#16222a,#3a6073);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+z-index:5;
+text-align:center;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(18px);
+box-shadow:0 0 40px rgba(0,255,213,.3);
+}
+
+h2{
+color:white;
+margin-bottom:25px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+width:300px;
+height:170px;
+perspective:1000px;
+margin:auto;
+cursor:pointer;
+}
+
+.card-inner{
+width:100%;
+height:100%;
+position:relative;
+transition:transform .7s;
+transform-style:preserve-3d;
+}
+
+.card.flip .card-inner{
+transform:rotateY(180deg);
+}
+
+.card-face{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:20px;
+font-weight:bold;
+color:white;
+backface-visibility:hidden;
+}
+
+.front{
+background:linear-gradient(135deg,#ff4ecd,#00ffd5);
+}
+
+.back{
+background:linear-gradient(135deg,#00ffd5,#0077ff);
+transform:rotateY(180deg);
+}
+
+/* ================= BUTTON ================= */
+
+button{
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+font-weight:bold;
+background:linear-gradient(45deg,#00ffd5,#00aaff);
+}
+
+/* ================= CLUE ================= */
+
+.clue-info{
+margin-top:20px;
+padding:15px;
+border-radius:12px;
+background:rgba(0,255,200,.15);
+border:2px solid #00ffd5;
+display:none;
+}
+
+.clue-text{
+color:#00ffd5;
+font-weight:bold;
+}
+
+/* ================= FALLING COCONUT ================= */
+
+.coconut{
+position:fixed;
+top:-80px;
+font-size:48px;
+pointer-events:none;
+animation:fall linear forwards;
+z-index:1;
+}
+
+@keyframes fall{
+0%{
+transform:translateY(-100px) rotate(0deg);
+opacity:1;
+}
+100%{
+transform:translateY(110vh) rotate(720deg);
+opacity:.95;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 id="playerTitle"></h2>
+
+<div class="card" id="wordCard" onclick="revealWord()">
+<div class="card-inner">
+
+<div class="card-face front">
+ടച്ച് ചെയ്ത് വാക്ക് കാണുക
+</div>
+
+<div class="card-face back" id="wordText">
+WORD
+</div>
+
+</div>
+</div>
+
+<div class="clue-info" id="clueInfo">
+<div>💡 കള്ളനേ ഇതാ നിങ്ങളുടെ ക്ലൂ:</div>
+<div class="clue-text" id="clueTextDisplay"></div>
+</div>
+
+<button id="nextBtn"
+style="display:none"
+onclick="nextPlayer()">അടുത്ത കളിക്കാരൻ</button>
+
+<button id="playBtn"
+style="display:none"
+onclick="startGame()">🎮 ഗെയിം ആരംഭിക്കുക</button>
+
+</div>
+
+<script>
+
+/* ================= GAME DATA ================= */
+
+let players =
+JSON.parse(localStorage.getItem("playerNames"))
+|| ["കളിക്കാരൻ 1","കളിക്കാരൻ 2"];
+
+let selectedWord =
+localStorage.getItem("selectedWord") || "വാക്ക്";
+
+let thiefIndex =
+parseInt(localStorage.getItem("thiefIndex")) || 0;
+
+let clueEnabled =
+localStorage.getItem("clueEnabled")==="true";
+
+let clueText =
+localStorage.getItem("clueText");
+
+let words = players.map((p,i)=>
+i===thiefIndex ? "കള്ളൻ" : selectedWord
+);
+
+let current=0;
+let revealed=false;
+
+/* ================= LOAD PLAYER ================= */
+
+function loadPlayer(){
+
+playerTitle.innerText=
+players[current]+" - നിങ്ങളുടെ വാക്ക്";
+
+wordText.innerText=words[current];
+
+wordCard.classList.remove("flip");
+
+nextBtn.style.display="none";
+clueInfo.style.display="none";
+
+revealed=false;
+}
+
+/* ================= REVEAL ================= */
+
+function revealWord(){
+
+if(!revealed){
+
+wordCard.classList.add("flip");
+nextBtn.style.display="inline-block";
+
+if(current===thiefIndex && clueEnabled && clueText){
+clueInfo.style.display="block";
+clueTextDisplay.innerText=clueText;
+}
+
+revealed=true;
+}
+}
+
+/* ================= NEXT ================= */
+
+function nextPlayer(){
+
+current++;
+
+if(current<players.length){
+loadPlayer();
+}else{
+playBtn.style.display="inline-block";
+}
+}
+
+function startGame(){
+window.location.href="page4.html";
+}
+
+loadPlayer();
+
+/* ================= INFINITE COCONUT RAIN ================= */
+
+function createCoconut(){
+
+let coconut=document.createElement("div");
+coconut.className="coconut";
+coconut.innerHTML="🥥";
+
+/* random position */
+coconut.style.left=Math.random()*95+"vw";
+
+/* random speed */
+let duration=4+Math.random()*3;
+coconut.style.animationDuration=duration+"s";
+
+document.body.appendChild(coconut);
+
+/* remove after fall */
+setTimeout(()=>{
+coconut.remove();
+},duration*1000);
+
+}
+
+/* infinite falling */
+setInterval(createCoconut,900);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<title>ആരാണ് കള്ളൻ?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BACKGROUND ================= */
+
+body{
+margin:0;
+font-family:'Noto Sans Malayalam',sans-serif;
+overflow-x:hidden;
+
+background:linear-gradient(-45deg,
+#141e30,#243b55,#16222a,#3a6073);
+
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* glowing blobs */
+
+.blob{
+position:fixed;
+width:350px;
+height:350px;
+filter:blur(90px);
+z-index:0;
+animation:moveBlob 20s infinite alternate;
+}
+
+.b1{
+background:#ff4ecd88;
+top:-100px;left:-100px;
+}
+
+.b2{
+background:#00ffd588;
+bottom:-100px;right:-100px;
+}
+
+@keyframes moveBlob{
+from{transform:translate(0,0);}
+to{transform:translate(150px,80px);}
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+max-width:700px;
+margin:auto;
+padding:20px;
+position:relative;
+z-index:3;
+}
+
+h1{
+color:white;
+text-shadow:0 0 25px #00ffd5;
+text-align:center;
+}
+
+/* ================= SECTIONS ================= */
+
+.section{
+margin:25px 0;
+padding:30px;
+border-radius:20px;
+backdrop-filter:blur(18px);
+transition:.4s;
+color:white;
+}
+
+.section:hover{
+transform:scale(1.03);
+}
+
+/* MODE BOX */
+
+.mode{
+background:linear-gradient(
+135deg,
+rgba(255,80,120,.35),
+rgba(255,0,100,.2)
+);
+box-shadow:0 0 25px rgba(255,80,120,.4);
+}
+
+/* CATEGORY BOX */
+
+.category{
+background:linear-gradient(
+135deg,
+rgba(0,200,255,.35),
+rgba(0,120,255,.2)
+);
+box-shadow:0 0 25px rgba(0,200,255,.4);
+}
+
+/* SETTINGS BOX */
+
+.settings{
+background:linear-gradient(
+135deg,
+rgba(255,210,0,.35),
+rgba(255,150,0,.2)
+);
+box-shadow:0 0 25px rgba(255,200,0,.4);
+}
+
+/* headings */
+
+h2{
+margin-bottom:15px;
+}
+
+/* ================= INPUT ================= */
+
+input,select{
+padding:10px;
+margin:6px;
+border-radius:10px;
+border:none;
+outline:none;
+transition:.3s;
+}
+
+input:focus,select:focus{
+transform:scale(1.05);
+box-shadow:0 0 10px white;
+}
+
+/* ================= SWITCH ================= */
+
+.switch{
+position:relative;
+display:inline-block;
+width:55px;
+height:28px;
+}
+
+.switch input{display:none;}
+
+.slider{
+position:absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:#aaa;
+border-radius:30px;
+cursor:pointer;
+}
+
+.slider:before{
+content:"";
+position:absolute;
+height:22px;
+width:22px;
+left:3px;
+bottom:3px;
+background:white;
+border-radius:50%;
+transition:.4s;
+}
+
+input:checked + .slider{
+background:#00ffb3;
+}
+
+input:checked + .slider:before{
+transform:translateX(27px);
+}
+
+/* ================= BUTTON ================= */
+
+.start-btn{
+margin-top:20px;
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+
+background:linear-gradient(45deg,#00ffd5,#00aaff);
+color:black;
+font-weight:bold;
+
+transition:.4s;
+box-shadow:0 0 25px #00ffd5;
+}
+
+.start-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 45px #00ffd5;
+}
+
+/* player names */
+
+#playerNames input{
+display:block;
+margin:auto;
+margin-bottom:8px;
+}
+
+/* ================= NAV BUTTON ================= */
+
+.back-btn{
+position:fixed;
+top:20px;
+right:20px;
+z-index:10;
+padding:10px 20px;
+font-size:14px;
+border:none;
+border-radius:20px;
+background:rgba(255,100,100,.8);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.back-btn:hover{
+background:rgba(255,100,100,1);
+transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html">
+<button class="back-btn">← ഹോം</button>
+</a>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<div class="container">
+
+<h1>ആരാണ് കള്ളൻ?</h1>
+
+<div class="section mode">
+<h2>🎮 ഗെയിം മോഡ്</h2>
+
+<label><input type="radio" name="mode"> ഓൺലൈൻ</label>
+<label><input type="radio" name="mode"> ഓഫ്‌ലൈൻ</label>
+
+<br><br>
+
+<label>എത്ര കളിക്കാർ:</label>
+<input type="number" id="numPlayers" min="3"
+onchange="generateNames()">
+
+<div id="playerNames"></div>
+</div>
+
+<div class="section category">
+<h2>📂 വിഭാഗം</h2>
+
+<select>
+<option>സാധനങ്ങൾ</option>
+<option>ജില്ല</option>
+<option>സ്ഥലം</option>
+<option>അഭിനേതാക്കൾ</option>
+<option>ഭക്ഷണം</option>
+<option>തമാശ വാക്കുകൾ</option>
+</select>
+
+<br><br>
+
+<label>എത്ര കള്ളൻ:</label>
+<input type="number" min="1">
+</div>
+
+<div class="section settings">
+<h2>⚙️ ക്രമീകരണങ്ങൾ</h2>
+
+<p>ക്ലൂ വേണോ...</p>
+<label class="switch">
+<input type="checkbox">
+<span class="slider"></span>
+</label>
+
+</div>
+<div style="text-align:center;">
+<button class="start-btn"> ഗെയിം തുടങ്ങാം</button>
+
+</div>
+
+<script>
+
+function generateNames(){
+let num=document.getElementById("numPlayers").value;
+let container=document.getElementById("playerNames");
+
+container.innerHTML="";
+
+for(let i=1;i<=num;i++){
+container.innerHTML+=
+`<input type="text" placeholder="കളിക്കാരൻ ${i} പേര്">`;
+}
+}
+
+/* ===== CATEGORY ITEMS (10 each) ===== */
+
+const categories = {
+
+"സാധനങ്ങൾ":[
+"പേന","പുസ്തകം","കപ്പ്","ഫോൺ","ബാഗ്",
+"കസേര","മേശ","ക്ലോക്ക്","കണ്ണാടി","ടിവി"
+],
+
+"ജില്ല":[
+"തിരുവനന്തപുരം","കോട്ടയം","ഇടുക്കി","മലപ്പുറം","കോഴിക്കോട്",
+"പാലക്കാട്","ആലപ്പുഴ","കണ്ണൂർ","കാസർഗോഡ്","പത്തനംതിട്ട"
+],
+
+"സ്ഥലം":[
+"ബീച്ച്","മല","പാർക്ക്","സ്കൂൾ","കോളേജ്",
+"സ്റ്റേഷൻ","മാർക്കറ്റ്","തീം പാർക്ക്","എയർപോർട്ട്","ഹോസ്പിറ്റൽ"
+],
+
+"അഭിനേതാക്കൾ":[
+"മോഹൻലാൽ","മമ്മൂട്ടി","ദിലീപ്","ഫഹദ് ഫാസിൽ","നിവിൻ പോളി",
+"പ്രിത്വിരാജ്","ടോവിനോ","ജയസൂര്യ","സുരേഷ് ഗോപി","കുഞ്ചാക്കോ ബോബൻ"
+],
+
+"ഭക്ഷണം":[
+"ബിരിയാണി","ദോശ","ഇഡ്ലി","പുട്ട്","കപ്പം",
+"മീൻകറി","ചപ്പാത്തി","പാൽപായസം","സമോസ","മാമ്പഴം"
+],
+
+"തമാശ വാക്കുകൾ":[
+"പൊട്ടൻ","ആദ്യരാത്രി","കിടുക്കി","ചില്ലറ","മണ്ടൻ","തല്ല്",
+"പൊളി","കിടിലം","പൊങ്ങച്ചം","ചിരി","കുശുമ്പ്"
+]
+
+};
+
+/* ===== CLUES FOR EACH WORD ===== */
+
+const clues = {
+"പേന":"എഴുതാൻ ഉപയോഗിക്കുന്നത്",
+"പുസ്തകം":"വായിക്കാൻ വേണ്ടത്",
+"കപ്പ്":"വെള്ളം കുടിക്കാൻ ഉപയോഗിക്കുന്നത്",
+"ഫോൺ":"സംസാരിക്കാൻ ഉപയോഗിക്കുന്നത്",
+"ബാഗ്":"വസ്തുക്കൾ വയ്ക്കാൻ ഉപയോഗിക്കുന്നത്",
+"കസേര":"ഇരിക്കാൻ ഉപയോഗിക്കുന്നത്",
+"മേശ":"മുകളിൽ വസ്തുക്കൾ വയ്ക്കാൻ ഉപയോഗിക്കുന്നത്",
+"ക്ലോക്ക്":"സമയം കാണാൻ ഉപയോഗിക്കുന്നത്",
+"കണ്ണാടി":"കാഴ്ച കാണാൻ ഉപയോഗിക്കുന്നത്",
+"ടിവി":"സിനിമ കാണാൻ ഉപയോഗിക്കുന്നത്",
+"തിരുവനന്തപുരം":"കേരളത്തിന്റെ തലസ്ഥാനം",
+"കോട്ടയം":"കേരളത്തിലെ ഒരു നഗരം",
+"ഇടുക്കി":"പർവ്വതമയ ജില്ല",
+"മലപ്പുറം":"കേരളത്തിലെ ജില്ല",
+"കോഴിക്കോട്":"നിരമലയ സമതലത്തിന്റെ നഗരം",
+"പാലക്കാട്":"കേരളത്തിലെ വടക്കൻ ജില്ല",
+"ആലപ്പുഴ":"കൂന്താബപ്പഅ് നിരപേക്ഷസ്ഥാനം",
+"കണ്ണൂർ":"കേരളത്തിലെ ഉത്തരപ്രാന്ത ജില്ല",
+"കാസർഗോഡ്":"കേരളത്തിലെ തെക്കൻ ജില്ല",
+"പത്തനംതിട്ട":"കേരളത്തിലെ മേധാവിജില്ല",
+"ബീച്ച്":"കടൽ തീരം",
+"മല":"ഉയരുന്ന ഭൂമി",
+"പാർക്ക്":"കളിക്കാൻ വേണ്ട വിടം",
+"സ്കൂൾ":"പഠിക്കാൻ വേണ്ട വിടം",
+"കോളേജ്":"ഉയർച്ചയായ പഠനത്തിന്റെ സ്ഥാനം",
+"സ്റ്റേഷൻ":"ട്രെയിൻ നിൽക്കുന്ന സ്ഥാനം",
+"മാർക്കറ്റ്":"വാണിജ്യ കേന്ദ്രം",
+"തീം പാർക്ക്":"രതിപ്തി കുടുംബത്തിനോ സമൂഹത്തിനോ വേണ്ടത്",
+"എയർപോർട്ട്":"വിമാനം പൈതരാഹണ വിടം",
+"ഹോസ്പിറ്റൽ":"രോഗികളെ സുഖം പരിചരിക്കുന്ന സ്ഥാനം",
+"മോഹൻലാൽ":"മലയാളിനടന്റെ രാജകുമാരൻ",
+"മമ്മൂട്ടി":"പടിഞ്ഞാറൻ സിനിമയിലെ അതിശയ നടൻ",
+"ദിലീപ്":"പഴയ കാലത്തെ പ്രഭാതരാജ നടൻ",
+"ഫഹദ് ഫാസിൽ":"യുവ കമ്പിനി നടൻ",
+"നിവിൻ പോളി":"പ്രതിഭാവാൻ നടൻ",
+"പ്രിത്വിരാജ്":"പടിഞ്ഞാറൻ സിനിമയിലെ നടൻ",
+"ടോവിനോ":"യുവ നടൻ",
+"ജയസൂര്യ":"പ്രസിദ്ധ നടൻ",
+"സുരേഷ് ഗോപി":"സിനിമായിലെ ആൻ സാവcoldപ്ഷൻ നടൻ",
+"കുഞ്ചാക്കോ ബോബൻ":"സിനിമായിലെ കോമിക് നടൻ",
+"ബിരിയാണി":"അരാബ് വര്ണ്ണത്തിൽ നിന്നെത്തിയ ചോറിന്റെ കൂട്ടായമാ",
+"ദോശ":"ദക്ഷിണന്ത് ഭാരതീയ ഭക്ഷണം",
+"ഇഡ്ലി":"സ്ഥൈരയായ ഭക്ഷണം",
+"പുട്ട്":"കേരളത്തിലെ പരിപ്പായകാരാളിന്റെ ഭക്ഷണം",
+"കപ്പം":"നാരിയലിന്റെ പ്രിപ്പരേഷൻ",
+"മീൻകറി":"മത്സ്യത്തിനെ സ്വാദിനമാക്കി പാക്ക്",
+"ചപ്പാത്തി":"ഗോതമ്പിന്റെ രോടിയായ ഭക്ഷണം",
+"പാൽപായസം":"പാലിന്റെ തിരുവെണ്ണ",
+"സമോസ":"കോണായ ഭക്ഷണം",
+"മാമ്പഴം":"പഴങ്ങളുടെ രാജ്ജ്യത്തിലെ രാജാവ്",
+"പൊട്ടൻ":"മൂഖന്",
+"ആദ്യരാത്രി":"വധൂവരന്മാർ",
+"കിടുക്കി":"വൈകാരിക",
+"ചില്ലറ":"സാധാരണ",
+"മണ്ടൻ":"ബുദ്ധിരാഹിതൻ",
+"തല്ല്":"അടിക്കൽ",
+"പൊളി":"നല്ലത്",
+"കിടിലം":"മികച്ചത്",
+"പൊങ്ങച്ചം":"അഹംകാരം",
+"ചിരി":"സന്തോഷിക്കാത്തൻ യ്",
+"കുശുമ്പ്":"വിദഗ്ദ"
+};
+
+function shuffleArray(arr){
+return arr.sort(()=>Math.random()-0.5);
+}
+
+document.querySelector(".start-btn").addEventListener("click",function(){
+
+let selectedCategory =
+document.querySelector("select").value;
+
+let items = [...categories[selectedCategory]];
+
+let shuffledItems = shuffleArray(items);
+
+let selectedWord = shuffledItems[0];
+
+localStorage.setItem("selectedWord",selectedWord);
+
+// Collect player names
+let playerInputs = document.querySelectorAll("#playerNames input");
+let playerNames = [];
+
+playerInputs.forEach(input => {
+if(input.value.trim() !== ""){
+playerNames.push(input.value.trim());
+}
+});
+
+localStorage.setItem("playerNames", JSON.stringify(playerNames));
+
+// Randomly select a thief from the players
+let thiefIndex = Math.floor(Math.random() * playerNames.length);
+localStorage.setItem("thiefIndex", thiefIndex);
+
+// Check if clue is enabled
+let clueEnabled = document.querySelector(".switch input").checked;
+localStorage.setItem("clueEnabled", clueEnabled);
+
+// Get the clue for the selected word
+let clueText = clues[selectedWord] || "ഒരു ക്ലൂ ലഭ്യമല്ല";
+localStorage.setItem("clueText", clueText);
+
+console.log("Selected Word:",selectedWord);
+console.log("Player Names:",playerNames);
+console.log("Thief Index:",thiefIndex);
+
+// Navigate to page3.html
+window.location.href = "page3.html";
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+<meta charset="UTF-8">
+<title>ഫലം</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= BACKGROUND ================= */
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Noto Sans Malayalam',sans-serif;
+overflow:hidden;
+
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#000000);
+background-size:400% 400%;
+animation:bgMove 14s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* glowing fog */
+
+.blob{
+position:absolute;
+width:450px;
+height:450px;
+filter:blur(120px);
+z-index:0;
+animation:moveBlob 18s infinite alternate;
+}
+
+.b1{background:#ff003c66;top:-120px;left:-120px;}
+.b2{background:#00ffd566;bottom:-120px;right:-120px;}
+
+@keyframes moveBlob{
+from{transform:translate(0,0);}
+to{transform:translate(120px,80px);}
+}
+
+/* floating particles */
+
+.particle{
+position:absolute;
+font-size:26px;
+opacity:.7;
+animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-25px);}
+}
+
+/* ================= RESULT BOX ================= */
+
+.container{
+position:relative;
+z-index:2;
+text-align:center;
+padding:50px;
+border-radius:30px;
+
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(20px);
+
+box-shadow:
+0 0 40px rgba(255,0,60,.5),
+0 0 80px rgba(0,0,0,.6);
+
+animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(.8);}
+to{opacity:1;transform:scale(1);}
+}
+
+/* ================= TITLE ================= */
+
+.header{
+font-size:48px;
+font-weight:800;
+color:white;
+
+text-shadow:
+0 0 15px red,
+0 0 30px red,
+0 0 60px red;
+
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.05);}
+}
+
+/* labels */
+
+.label{
+margin-top:30px;
+font-size:22px;
+color:#ccc;
+}
+
+/* imposter name reveal */
+
+.name{
+font-size:40px;
+font-weight:bold;
+color:#ff3b3b;
+margin-top:10px;
+
+animation:revealName 1.5s ease;
+}
+
+@keyframes revealName{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* word */
+
+.word{
+font-size:36px;
+margin-top:10px;
+color:#00ffd5;
+
+text-shadow:0 0 20px #00ffd5;
+}
+
+/* ================= BUTTON ================= */
+
+.new-btn{
+margin-top:45px;
+padding:16px 45px;
+font-size:22px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+font-weight:bold;
+
+background:linear-gradient(45deg,#00ffd5,#00aaff);
+box-shadow:0 0 30px #00ffd5;
+
+transition:.4s;
+}
+
+.new-btn:hover{
+transform:scale(1.15);
+box-shadow:0 0 60px #00ffd5;
+}
+
+/* ================= NAV BUTTON ================= */
+
+.back-btn{
+position:fixed;
+top:20px;
+right:20px;
+z-index:10;
+padding:10px 20px;
+font-size:14px;
+border:none;
+border-radius:20px;
+background:rgba(255,100,100,.8);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.back-btn:hover{
+background:rgba(255,100,100,1);
+transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="page4.html">
+<button class="back-btn">← ബാക്ക്</button>
+</a>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<div class="particle" style="top:10%;left:15%">😈</div>
+<div class="particle" style="top:25%;right:12%">🔥</div>
+<div class="particle" style="bottom:18%;left:18%">🕵️</div>
+<div class="particle" style="bottom:25%;right:15%">✨</div>
+
+<div class="container">
+
+<div class="header">
+ഇംപോസ്റ്റർ ആരാണ്?
+</div>
+
+<div class="label">🕵️ കള്ളൻ:</div>
+<div class="name" id="imposterName"></div>
+
+<div class="label">🔑 യഥാർത്ഥ വാക്ക്:</div>
+<div class="word" id="finalWord"></div>
+
+<button class="new-btn" onclick="newGame()">
+🚀 പുതിയ ഗെയിം
+</button>
+
+</div>
+
+<script>
+
+/* ================= LOAD DATA ================= */
+
+let players =
+JSON.parse(localStorage.getItem("playerNames")) || [];
+
+let imposterIndex =
+localStorage.getItem("imposterIndex");
+
+let selectedWord =
+localStorage.getItem("selectedWord");
+
+/* show data */
+
+if(players.length>0){
+document.getElementById("imposterName")
+.innerText=players[imposterIndex];
+}
+
+if(selectedWord){
+document.getElementById("finalWord")
+.innerText=selectedWord;
+}
+
+/* new game */
+
+function newGame(){
+localStorage.clear();
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>

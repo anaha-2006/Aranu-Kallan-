@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Malayalam:wght@700&display=swap" rel="stylesheet">
+
+<title>ആരാണ് കള്ളൻ?</title>
+
+<style>
+
+/* ======================
+ BACKGROUND SKY
+====================== */
+
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Noto Sans Malayalam',sans-serif;
+
+    background:linear-gradient(270deg,#0f2027,#223b43,#2c5364);
+    background-size:600% 600%;
+    animation:bgMove 18s infinite alternate;
+}
+
+@keyframes bgMove{
+    from{background-position:left;}
+    to{background-position:right;}
+}
+
+/* ======================
+ REAL SMOKE LAYERS
+====================== */
+
+.smoke-container{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:2;
+}
+
+/* individual smoke cloud */
+
+.smoke{
+    position:absolute;
+    bottom:-150px;
+    width:500px;
+    height:300px;
+
+    background:
+    radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.25) 30%,
+        rgba(255,255,255,0.1) 55%,
+        transparent 70%
+    );
+
+    filter:blur(35px);
+    animation:rise linear infinite;
+}
+
+/* smooth floating motion */
+
+@keyframes rise{
+    0%{
+        transform:translateX(0) translateY(0) scale(1);
+        opacity:.6;
+    }
+    50%{
+        transform:translateX(120px) translateY(-250px) scale(1.2);
+        opacity:.4;
+    }
+    100%{
+        transform:translateX(-80px) translateY(-500px) scale(1.4);
+        opacity:0;
+    }
+}
+
+/* ======================
+ FIREFLIES
+====================== */
+
+.firefly{
+    position:absolute;
+    width:6px;
+    height:6px;
+    background:#ffe066;
+    border-radius:50%;
+    box-shadow:0 0 12px #ffe066;
+    animation:float 8s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+    30%{opacity:1;}
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+
+/* ======================
+ TITLE
+====================== */
+
+.title{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:64px;
+    color:white;
+    z-index:5;
+
+    text-shadow:
+        0 0 20px black,
+        0 0 40px rgba(255,255,255,.3);
+}
+
+/* ======================
+ THIEF
+====================== */
+
+.thief{
+    position:absolute;
+    width:180px;
+    transition:1s ease-in-out;
+    z-index:6;
+}
+
+@keyframes sneak{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+.thief svg{
+    animation:sneak 1.2s infinite;
+}
+
+.eye{
+    transform-origin:center;
+    animation:blink 4s infinite;
+}
+
+@keyframes blink{
+    0%,90%,100%{transform:scaleY(1);}
+    95%{transform:scaleY(.1);}
+}
+
+/* corner positions */
+
+.show-tl{top:20px;left:20px;}
+.show-tr{top:20px;right:20px;}
+.show-br{bottom:20px;right:20px;}
+.show-bl{bottom:20px;left:20px;}
+
+/* ======================
+ START BUTTON
+====================== */
+
+.start-button{
+    position:fixed;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    padding:15px 40px;
+    font-size:18px;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(45deg,#00ffd5,#00aaff);
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.4s;
+    box-shadow:0 0 25px #00ffd5;
+}
+
+.start-button:hover{
+    transform:translateX(-50%) scale(1.1);
+    box-shadow:0 0 45px #00ffd5;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SMOKE AREA -->
+<div class="smoke-container" id="smokeArea"></div>
+
+<div class="title">ആരാണ് കള്ളൻ?</div>
+
+<!-- THIEF -->
+
+<div id="thief" class="thief show-tl">
+
+<svg viewBox="0 0 200 220">
+
+<ellipse cx="150" cy="135" rx="35" ry="45" fill="#7a4b2c"/>
+<rect x="70" y="90" width="60" height="80" rx="20" fill="#222"/>
+
+<g stroke="white" stroke-width="6">
+<line x1="75" y1="105" x2="125" y2="105"/>
+<line x1="75" y1="125" x2="125" y2="125"/>
+<line x1="75" y1="145" x2="125" y2="145"/>
+</g>
+
+<circle cx="100" cy="65" r="35" fill="#f2c18d"/>
+
+<path d="M65 45 Q100 10 135 45 Z" fill="#555"/>
+
+<rect x="65" y="55" width="70" height="25"
+rx="12" fill="black"/>
+
+<g class="eye">
+<circle cx="85" cy="67" r="8" fill="white"/>
+<circle cx="115" cy="67" r="8" fill="white"/>
+<circle cx="88" cy="69" r="4"/>
+<circle cx="118" cy="65" r="4"/>
+</g>
+
+<path d="M85 85 Q100 95 115 85"
+stroke="#aa3333"
+stroke-width="3"
+fill="none"/>
+
+</svg>
+
+</div>
+
+<a href="page2.html">
+<button class="start-button">🎮 ഗെയിം തുടങ്ങാം</button>
+</a>
+
+<script>
+
+/* ======================
+ CORNER MOVEMENT
+====================== */
+
+const thief=document.getElementById("thief");
+
+const corners=[
+"show-tl",
+"show-tr",
+"show-br",
+"show-bl"
+];
+
+let i=0;
+
+setInterval(()=>{
+    thief.className="thief "+corners[i];
+    i=(i+1)%4;
+},1000);
+
+
+/* ======================
+ GENERATE REAL SMOKE
+====================== */
+
+const smokeArea=document.getElementById("smokeArea");
+
+function createSmoke(){
+
+    const smoke=document.createElement("div");
+    smoke.className="smoke";
+
+    smoke.style.left=Math.random()*100+"vw";
+    smoke.style.animationDuration=
+        (12+Math.random()*10)+"s";
+
+    smokeArea.appendChild(smoke);
+
+    setTimeout(()=>smoke.remove(),22000);
+}
+
+setInterval(createSmoke,1200);
+
+
+/* ======================
+ FIREFLIES
+====================== */
+
+for(let i=0;i<25;i++){
+    const fly=document.createElement("div");
+    fly.className="firefly";
+    fly.style.left=Math.random()*100+"vw";
+    fly.style.animationDuration=
+        (6+Math.random()*6)+"s";
+    document.body.appendChild(fly);
+}
+
+</script>
+
+</body>
+</html>
