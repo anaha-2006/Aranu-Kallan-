@@ -2,15 +2,15 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
+# Aranu Kallan? 🎯
 
-## Basic Details
+## We created a fun concept called “Imposter for Malayali”, which is basically a humorous take on the popular idea of an imposter, but tailored for Malayali culture. It involves using funny Malayalam words, nicknames, or phrases to identify someone who’s pretending, acting suspicious, or just being extra dramatic in everyday life. The idea is to mix relatable local humor with the imposter theme, making it entertaining for friends, social media, or casual memes, while keeping it light-hearted and culturally specific.
 
-### Team Name: [Name]
+### Team Name: D&D
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: Anaha.S - College of engineering perumon
+- Member 2: Adithya Anil - College of engineering perumon
 
 ### Hosted Project Link
 [mention your project hosted link here]
