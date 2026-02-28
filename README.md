@@ -83,13 +83,13 @@ List the key features of your project:
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](<img src="./first.png">)
+![Screenshot1](first.png)
 The second page is the game setup page where players choose the game mode, number of players, category, and other settings. It dynamically generates input fields for player names based on the number entered. When the “Start Game” button is clicked, it randomly selects a word from the chosen category and stores it in localStorage for the next page. The page also has animated background blobs for a visually engaging interface.
 
-![Screenshot2](<img src="./second.png">)
+![Screenshot2](second.png)
 The third page is the word reveal page for each player. It shows the current player's name and a card that hides their assigned word. When the player clicks the card, it flips to reveal the word, and a “Next Player” button appears to move to the next player. This continues until all players have seen their words, making it easy to play the game turn by turn.
 
-![Screenshot3](<img src="./third.png">)
+![Screenshot3](third.png)
 The fourth page is the result or summary page. It displays the imposter’s name and the selected word for the game, showing the final outcome to all players. It also includes a “New Game” button that clears the previous game data and allows players to start a fresh game. Floating emojis add a fun and playful visual effect to the page.
 
 #### Diagrams
