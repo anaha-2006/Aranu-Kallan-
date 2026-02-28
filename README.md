@@ -13,16 +13,16 @@
 - Member 2: Adithya Anil - College of engineering perumon
 
 ### Hosted Project Link
-[mention your project hosted link here]
+https://anaha-2006.github.io/Aranu-Kallan-/
 
 ### Project Description
-[2-3 lines about what your project does]
+This “Who is the Imposter” game for Malayalis works entirely in Malayalam, making it easy for players to understand and play. Players are given words from familiar categories like Malayalam actors, local foods, and places, and one player is secretly assigned as the imposter. By keeping the game in the local language and culturally relevant, it solves the problem of Malayalis struggling with English-based versions and allows everyone to fully enjoy the game.
 
 ### The Problem statement
-[What problem are you solving?]
+Most existing “Who is the Imposter” games are in English, making it difficult for Malayali players, especially teens and kids, to understand and enjoy. There is currently no dedicated version of the game in Malayalam that is fully accessible and engaging for local players. This creates a need for a Malayalam-language version of the game that is fun, easy to use, and culturally relevant.
 
 ### The Solution
-[How are you solving it?]
+We created a “Who is the Imposter” game app entirely in Malayalam, making it easy for local players to understand and enjoy. The app includes familiar Malayalam elements such as the names of popular actors, local food items, and other culturally relevant categories. This ensures that Malayali players can fully participate, have fun, and connect with the game in their own language.
 
 ---
 
@@ -31,10 +31,10 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: html,css,js
+- Frameworks used: nil
+- Libraries used: nil
+- Tools used:  VS Code, Git
 
 **For Hardware:**
 - Main components: [List main components]
@@ -46,8 +46,8 @@
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
+- Feature 1: Malayalam Content – All game elements like player names, words, categories, and instructions are in Malayalam, making it easy for local users to understand and play.
+- Feature 2: 
 - Feature 3: [Description]
 - Feature 4: [Description]
 
